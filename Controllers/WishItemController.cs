@@ -40,7 +40,7 @@ namespace WebAPIWishList.Controllers
             if (!_wishListRepository.WishItemExists(wishId))
                 return NotFound();
 
-            var wishItem = _mapper.Map<WishItem>(_wishListRepository.GetWishItem(wishId));
+            var wishItem = _mapper.Map<WishItemDto>(_wishListRepository.GetWishItem(wishId));
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
