@@ -104,3 +104,5 @@ C:\Users\Home\Desktop\Programmer SOLO Q\WebAPIWishList\WebAPIWishList\obj\Debug\
 C:\Users\Home\Desktop\Programmer SOLO Q\WebAPIWishList\WebAPIWishList\obj\Debug\net8.0\WebAPIWishList.pdb
 C:\Users\Home\Desktop\Programmer SOLO Q\WebAPIWishList\WebAPIWishList\obj\Debug\net8.0\WebAPIWishList.genruntimeconfig.cache
 C:\Users\Home\Desktop\Programmer SOLO Q\WebAPIWishList\WebAPIWishList\obj\Debug\net8.0\ref\WebAPIWishList.dll
+C:\Users\Home\Desktop\Programmer SOLO Q\WebAPIWishList\WebAPIWishList\obj\Debug\net8.0\WebAPIWishList.sourcelink.json
+C:\Users\Home\Desktop\Programmer SOLO Q\WebAPIWishList\WebAPIWishList\bin\Debug\net8.0\AutoMapper.dll

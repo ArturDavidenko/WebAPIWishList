@@ -18,6 +18,7 @@ namespace WebAPIWishList
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddScoped<IWishListRepository, WishListRepository>();
             builder.Services.AddDbContext<WLContext>(options => {
                 options.UseNpgsql(builder.Configuration.GetConnectionString("WishListDataBase"));
