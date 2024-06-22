@@ -12,5 +12,9 @@ namespace WebAPIWishList.Interfaces
 
         bool WishItemExists(int id);
 
+        bool CreateWishItem(WishItem wishItem);
+
+        bool Save();
+
     }
 }

@@ -48,5 +48,38 @@ namespace WebAPIWishList.Controllers
             return Ok(wishItem);
         }
 
+
+        [HttpPost]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public IActionResult CreateWishItem([FromBody] WishItemDto wishItemCreate)
+        {
+            if(wishItemCreate == null)
+                return BadRequest(ModelState);
+
+            var wishItems = _wishListRepository.GetWishItems()
+                .Where(w => w.Title.Trim().ToUpper() == wishItemCreate.Title.TrimEnd().ToUpper()).FirstOrDefault();
+
+            if(wishItems != null)
+            {
+                ModelState.AddModelError("", "Wish item already exist");
+                return StatusCode(422, ModelState);
+            }
+
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var wishItemMap = _mapper.Map<WishItem>(wishItemCreate);
+
+            if (!_wishListRepository.CreateWishItem(wishItemMap)) 
+            {
+                ModelState.AddModelError("", "Somthink went wrong while saving");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Successeful created!");
+                
+        }
+
     }
 }

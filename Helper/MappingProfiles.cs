@@ -9,6 +9,7 @@ namespace WebAPIWishList.Helper
         public MappingProfiles() 
         {
             CreateMap<WishItem, WishItemDto>();
+            CreateMap<WishItemDto, WishItem>();
         }
     }
 }

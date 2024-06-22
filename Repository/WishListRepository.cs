@@ -32,6 +32,16 @@ namespace WebAPIWishList.Repository
             return _context.wishItems.OrderBy(x => x.Id).ToList();
         }
 
-        
+        public bool CreateWishItem(WishItem wishItem)
+        {
+            _context.Add(wishItem);
+            return Save();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
     }
 }
