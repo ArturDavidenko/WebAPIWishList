@@ -13,7 +13,7 @@ namespace WebAPIWishList.Controllers
     {
         private readonly IWishListRepository _wishListRepository;
         private readonly IMapper _mapper;
-        
+
         public WishItemController(IWishListRepository wishListRepository, IMapper mapper)
         {
             _wishListRepository = wishListRepository;
@@ -50,36 +50,89 @@ namespace WebAPIWishList.Controllers
 
 
         [HttpPost]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         public IActionResult CreateWishItem([FromBody] WishItemDto wishItemCreate)
         {
-            if(wishItemCreate == null)
+            if (wishItemCreate == null)
                 return BadRequest(ModelState);
 
             var wishItems = _wishListRepository.GetWishItems()
                 .Where(w => w.Title.Trim().ToUpper() == wishItemCreate.Title.TrimEnd().ToUpper()).FirstOrDefault();
 
-            if(wishItems != null)
+            if (wishItems != null)
             {
                 ModelState.AddModelError("", "Wish item already exist");
                 return StatusCode(422, ModelState);
             }
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var wishItemMap = _mapper.Map<WishItem>(wishItemCreate);
 
-            if (!_wishListRepository.CreateWishItem(wishItemMap)) 
+            if (!_wishListRepository.CreateWishItem(wishItemMap))
             {
                 ModelState.AddModelError("", "Somthink went wrong while saving");
                 return StatusCode(500, ModelState);
             }
 
             return Ok("Successeful created!");
-                
+
         }
+
+        [HttpPut("{wishItemId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult UpdateWishItem(int wishItemId, [FromBody]WishItemDto updateWishItem)
+        {
+            if(updateWishItem == null)
+                return BadRequest(ModelState);
+
+            if (wishItemId != updateWishItem.Id)
+                return BadRequest(ModelState);
+
+            if(!_wishListRepository.WishItemExists(wishItemId))
+                return NotFound();
+
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var wishItemMap = _mapper.Map<WishItem>(updateWishItem);
+
+            if (!_wishListRepository.UpdateWishItem(wishItemMap))
+            {
+                ModelState.AddModelError("", "Somthing went wrong updating");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+        }
+
+
+        [HttpDelete("{wishItemId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteWishItem(int wishItemId) 
+        {
+            if (!_wishListRepository.WishItemExists(wishItemId))
+                return NotFound();
+
+            var wishItemToDelete = _wishListRepository.GetWishItem(wishItemId);
+
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!_wishListRepository.DeleteWishItem(wishItemToDelete))
+            {
+                ModelState.AddModelError("", "Somthing went wrong deliting item");
+            }
+
+            return NoContent();
+        }
+
 
     }
 }

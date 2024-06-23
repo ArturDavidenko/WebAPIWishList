@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebAPIWishList")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1b5de3434513d627d5348d7a2eabdb0de1913269")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+516b855486a5b796834738a0a3430a94a452c491")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebAPIWishList")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebAPIWishList")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

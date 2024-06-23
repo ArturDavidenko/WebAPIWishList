@@ -43,5 +43,17 @@ namespace WebAPIWishList.Repository
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
         }
+
+        public bool UpdateWishItem(WishItem wishItem)
+        {
+            _context.Update(wishItem);
+            return Save();
+        }
+
+        public bool DeleteWishItem(WishItem wishItem)
+        {
+            _context.Remove(wishItem);
+            return Save();
+        }
     }
 }

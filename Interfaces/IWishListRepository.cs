@@ -16,5 +16,9 @@ namespace WebAPIWishList.Interfaces
 
         bool Save();
 
+        bool UpdateWishItem(WishItem wishItem);
+
+        bool DeleteWishItem(WishItem wishItem);
+
     }
 }
