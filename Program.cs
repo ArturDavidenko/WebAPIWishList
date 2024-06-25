@@ -1,8 +1,8 @@
 
 using Microsoft.EntityFrameworkCore;
 using WebAPIWishList.Data;
-using WebAPIWishList.Interfaces;
 using WebAPIWishList.Repository;
+using WebAPIWishList.Repository.Interfaces;
 
 namespace WebAPIWishList
 {
@@ -20,7 +20,7 @@ namespace WebAPIWishList
             builder.Services.AddSwaggerGen();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddScoped<IWishListRepository, WishListRepository>();
-            builder.Services.AddDbContext<WLContext>(options => {
+            builder.Services.AddDbContext<DBContext>(options => {
                 options.UseNpgsql(builder.Configuration.GetConnectionString("WishListDataBase"));
             });
 

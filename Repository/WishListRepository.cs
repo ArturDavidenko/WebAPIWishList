@@ -1,19 +1,23 @@
 ﻿using WebAPIWishList.Data;
-using WebAPIWishList.Interfaces;
 using WebAPIWishList.Models;
+using WebAPIWishList.Repository.Interfaces;
 
 namespace WebAPIWishList.Repository
 {
     public class WishListRepository : IWishListRepository
     {
-        private readonly WLContext _context;
-        public WishListRepository(WLContext context) 
+        private readonly DBContext _context;
+   
+        public WishListRepository(DBContext context) 
         { 
             _context = context;
         }
 
         public WishItem GetWishItem(int id)
         {
+            if (!WishItemExists(id))
+                return null; // write good exception not null!
+
             return _context.wishItems.Where(x => x.Id == id).FirstOrDefault();
         }
 
@@ -34,6 +38,15 @@ namespace WebAPIWishList.Repository
 
         public bool CreateWishItem(WishItem wishItem)
         {
+            if (wishItem == null)
+                return false;
+
+            var wishItems = GetWishItems()
+                .Where(w => w.Title.Trim().ToUpper() == wishItem.Title.TrimEnd().ToUpper()).FirstOrDefault();
+
+            if (wishItems != null)
+                return false;
+            
             _context.Add(wishItem);
             return Save();
         }
@@ -44,14 +57,26 @@ namespace WebAPIWishList.Repository
             return saved > 0 ? true : false;
         }
 
-        public bool UpdateWishItem(WishItem wishItem)
+        public bool UpdateWishItem(WishItem updateWishItem, int wishItemId)
         {
-            _context.Update(wishItem);
+            if (wishItemId != updateWishItem.Id)
+                return false;
+
+            if (updateWishItem == null)
+                return false;
+
+            if (!WishItemExists(updateWishItem.Id))
+                return false;
+
+            _context.Update(updateWishItem);
             return Save();
         }
 
         public bool DeleteWishItem(WishItem wishItem)
         {
+            if (wishItem == null) 
+                return false;
+
             _context.Remove(wishItem);
             return Save();
         }

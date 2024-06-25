@@ -10,7 +10,7 @@ using WebAPIWishList.Data;
 
 namespace WebAPIWishList.Migrations
 {
-    [DbContext(typeof(WLContext))]
+    [DbContext(typeof(DBContext))]
     [Migration("20240622181556_InitialCreate")]
     partial class InitialCreate
     {

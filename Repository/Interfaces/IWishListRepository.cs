@@ -1,6 +1,6 @@
 ﻿using WebAPIWishList.Models;
 
-namespace WebAPIWishList.Interfaces
+namespace WebAPIWishList.Repository.Interfaces
 {
     public interface IWishListRepository
     {
@@ -16,7 +16,7 @@ namespace WebAPIWishList.Interfaces
 
         bool Save();
 
-        bool UpdateWishItem(WishItem wishItem);
+        bool UpdateWishItem(WishItem wishItem, int wishItemId);
 
         bool DeleteWishItem(WishItem wishItem);
 

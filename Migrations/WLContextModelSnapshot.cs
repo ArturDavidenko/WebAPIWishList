@@ -9,7 +9,7 @@ using WebAPIWishList.Data;
 
 namespace WebAPIWishList.Migrations
 {
-    [DbContext(typeof(WLContext))]
+    [DbContext(typeof(DBContext))]
     partial class WLContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
